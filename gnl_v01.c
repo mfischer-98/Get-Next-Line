@@ -6,7 +6,7 @@
 /*   By: mefische <mefische@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 09:53:52 by mefische          #+#    #+#             */
-/*   Updated: 2025/05/09 17:01:58 by mefische         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:58:47 by mefische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*get_next_line(int fd)
 	line = ft_strcdup(stash, '\n'); //ja colocar o \n
 	if (!line)
 		return NULL;
-	stash = ft_substr(stash, ft_strlen(line), ft_strlen(stash) - ft_strlen(line)); //preciso mover o stash para depois do \n e guardar o que tem dps
+	stash = ft     _substr(st    ash, ft_strlen(line), ft_strlen(stash) - ft_strlen(line)); //preciso mover o stash para depois do \n e guardar o que tem dps
 	if (!*stash)
 	{
 		free(stash);

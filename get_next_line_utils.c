@@ -6,7 +6,7 @@
 /*   By: mefische <mefische@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:55:29 by mefische          #+#    #+#             */
-/*   Updated: 2025/05/09 16:48:48 by mefische         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:39:05 by mefische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 	int		i;
 	int		j;
 
-	if(!s1 && !s2)
+	if (!s1 && !s2)
 		return (NULL);
 	i = 0;
 	j = 0;
@@ -92,7 +92,7 @@ char	*ft_strcdup(char *s, char c)
 	str[i] = c;
 	str[i + 1] = '\0';
 	return (str);
-}
+}  //falta se for a ultimalinha nao colocar o \n
 
 char	*ft_substr(char *s, unsigned int start, size_t len)
 {
@@ -120,5 +120,3 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	}
 	return (sub);
 }
-
-
