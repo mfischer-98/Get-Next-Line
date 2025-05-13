@@ -6,7 +6,6 @@
 // shift(char *buffer)
 // has_new_line(char *buffer)
 
-#include <stdlib.h>
 #include "get_next_line.h"
 
 void	ft_strcopy(char *new, char *line, char *buffer)
@@ -117,18 +116,18 @@ char *get_next_line(int fd)
 	shift(buffer);
 	return (line);
 }
-// 
-// #include <unistd.h>
-// #include <stdio.h>
-// 
-// int main(void)
-// {
-// 	int fd = open("gnl.c", O_RDONLY);
-// 	char *str;
-// 
-// 	while ((str = get_next_line(fd)))
-// 		printf("%s", str);
-// 	str = get_next_line(fd);
-// 	printf("%s", str);
-// 	return (0);
-// }
+
+#include <unistd.h>
+#include <stdio.h>
+
+int main(void)
+{
+	int fd = open("gnl.c", O_RDONLY);
+	char *str;
+
+	while ((str = get_next_line(fd)))
+		printf("%s", str);
+	str = get_next_line(fd);
+	printf("%s", str);
+	return (0);
+}

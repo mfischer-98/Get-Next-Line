@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   gnl_v01.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mefische <mefische@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 09:53:52 by mefische          #+#    #+#             */
-/*   Updated: 2025/05/12 16:58:47 by mefische         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:08:06 by mefische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static char	*ft_read(int fd, char *stash, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	char		*buffer;//o pedaco de texto que a read leu
-	static char	*stash;//para guardar os restos
-	char		*line;//linha que quero retornar
+	char		*buffer; //o pedaco de texto que a read leu
+	static char	*stash; //para guardar os restos
+	char		*line; //linha que quero retornar
 	
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -56,7 +56,7 @@ char	*get_next_line(int fd)
 	line = ft_strcdup(stash, '\n'); //ja colocar o \n
 	if (!line)
 		return NULL;
-	stash = ft     _substr(st    ash, ft_strlen(line), ft_strlen(stash) - ft_strlen(line)); //preciso mover o stash para depois do \n e guardar o que tem dps
+	stash = ft_substr(stash, ft_strlen(line), ft_strlen(stash) - ft_strlen(line)); //preciso mover o stash para depois do \n e guardar o que tem dps
 	if (!*stash)
 	{
 		free(stash);
@@ -64,7 +64,7 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
-/* 
+
 int	main()
 {
 	char	*line;
@@ -81,7 +81,7 @@ int	main()
 	if (close(fd) == -1)
 		return(1);
 	return (0);
-} */
+}
 
 /* int main()
 {
