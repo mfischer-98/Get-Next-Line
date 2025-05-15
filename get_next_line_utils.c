@@ -12,111 +12,100 @@
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	c = (unsigned char) c;
-	while (s || s[i])
-	{
-		if (s[i] == c)
-			return ((char *)&s[i]);
-		i++;
-	}
-	if (c == '\0')
-		return ((char *)&s[i]);
-	return (NULL);
-}
-
-char	*ft_strjoin(char *s1, char const *s2)
-{
-	char	*str;
-	int		len;
-	int		i;
-	int		j;
-
-	if (!s1 && !s2)
-		return (NULL);
-	i = 0;
-	j = 0;
-	len = ft_strlen(s1) + ft_strlen(s2);
-	str = malloc ((len + 1) * sizeof(char));
-	if (str == NULL)
-		return (NULL);
-	while (s1 && s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	while (s2 && s2[j])
-	{
-		str[i] = s2[j];
-		i++;
-		j++;
-	}
-	str[i] = '\0';
-	free(s1);
-	return (str);
-}
-
+// Calculates length of string
 size_t	ft_strlen(const char *s)
 {
-	int	l;
+    size_t len;
 
-	l = 0;
-	while (s && s[l])
-	{
-		l++;
-	}
-	return (l);
+	len = 0;
+    while (s && s[len])
+		len++;
+    return len;
 }
 
-char	*ft_strcdup(char *s, char c)
+// Locates first occurrence of character in string
+char	*ft_strchr(const char *s, int c)
 {
-	char	*str;
-	int		i;
+    if (!s)
+		return NULL;
+    while (*s) {
+        if (*s == (char)c)
+            return (1);
+        s++;
+    }
+    return (NULL);
+}
 
-	i = 0;
-	while (s[i] && s[i] != c)
-		i++;
-	str = malloc ((i + 2) * sizeof(char));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (s[i] && s[i] != c)
-	{
-		str[i] = s[i];
-		i++;
-	}
-	str[i] = c;
-	str[i + 1] = '\0';
-	return (str);
-}  //falta se for a ultimalinha nao colocar o \n
-
-char	*ft_substr(char *s, unsigned int start, size_t len)
+// Creates duplicate of string
+char *ft_strdup(const char *s)
 {
-	size_t	i;
-	char	*sub;
+    char *dup;
+    size_t len;
+    size_t i;
 
-	i = 0;
-	if (start >= ft_strlen(s))
-		return (free(s), ft_strcdup("", '\0'));
-	if (len > (ft_strlen(s + start)))
-		len = ft_strlen(s + start);
-	sub = malloc(len + 1 * sizeof(char));
-	if (!sub)
-		return (NULL);
-	while (i < len)
-	{
-		sub[i] = s[start + i];
-		i++;
-	}
-	sub[i] = '\0';
-	if (s)
-	{
-		free(s);
-		s = NULL;
-	}
-	return (sub);
+    if (!s) return NULL;
+    
+    len = ft_strlen(s);
+    dup = malloc(len + 1);
+    if (!dup) return NULL;
+    
+    i = 0;
+    while (s[i]) {
+        dup[i] = s[i];
+        i++;
+    }
+    dup[i] = '\0';
+    return dup;
+}
+
+// Concatenates two strings
+char *ft_strjoin(char *s1, char *s2)
+{
+    char *join;
+    size_t len1;
+    size_t len2;
+    size_t i;
+
+    if (!s1 && !s2)
+		return NULL;
+    len1 = ft_strlen(s1);
+    len2 = ft_strlen(s2);
+    join = malloc(len1 + len2 + 1); //malloc entao tenho que dar free depois
+    if (!join)
+		return NULL;
+    i = 0;
+    while (s1 && *s1)
+        join[i++] = *s1++;
+    while (s2 && *s2)
+        join[i++] = *s2++;
+    join[i] = '\0';
+    return (join);
+}
+
+// Extracts substring from string
+char *ft_substr(char const *s, unsigned int start, size_t len)
+{
+    char *sub;
+    size_t i;
+    size_t str_len;
+
+    if (!s) return NULL;
+    
+    str_len = ft_strlen(s);
+    if (start >= str_len)
+        return ft_strdup("");
+    
+    if (len > str_len - start)
+        len = str_len - start;
+    
+    sub = malloc(len + 1);
+    if (!sub) return NULL;
+    
+    i = 0;
+    while (i < len && s[start + i]) {
+        sub[i] = s[start + i];
+        i++;
+    }
+    sub[i] = '\0';
+    return sub;
 }

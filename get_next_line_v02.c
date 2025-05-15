@@ -92,39 +92,50 @@ int	ft_check(char *str)
 	return (0);
 }
 
-char	*get_next_line(int fd)
+char *get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
-	char		*line;
-	int			bytes;
+    static char buffer[BUFFER_SIZE + 1];
+    char *line = NULL;
+    int bytes;
 
-	line = NULL; //inicializar variavel
-/* 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL); */
-	line = ft_createstr(line, buffer); //um tipo de strjoin
-	while(!ft_check(buffer))
-	{
-		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (bytes < 0)//erro ao ler
-			break;
-		line = ft_createstr(line, buffer);
-		if(buffer[0] == '\0' || bytes == 0)//arquivo acabouuu mas na ultima linha estou dando free antes de devolver, na proxima que quero null
-			return (free(line), NULL);
-		if (bytes < BUFFER_SIZE)//quer dizer que o arquivo ta no final
-			buffer[bytes] = '\0';
-	}
-	ft_shiftbuffer(buffer);
-	return(line);
+    // Ver se tem algo no buffer antes de ler
+    if (buffer[0] != '\0')
+        line = ft_createstr(NULL, buffer);
+    while (!ft_check(buffer))
+    {
+        bytes = read(fd, buffer, BUFFER_SIZE);
+        if (bytes < 0)
+            return (free(line), NULL);
+        buffer[bytes] = '\0';
+        if (bytes == 0) // EOF
+        {
+            if (line && line[0] != '\0')
+                return line;
+            return (free(line), NULL);
+        }
+        line = ft_createstr(line, buffer);
+    }
+    ft_shiftbuffer(buffer);
+    return line;
 }
 
 int main(void)
 {
 	int fd = open("text.txt", O_RDONLY);
-	char *str;
-
-	while ((str = get_next_line(fd)))
-		printf("%s", str);
+    char *str;
+    
+    if (fd < 0)
+    {
+        printf("Error opening file\n");
+        return 1;
+    }
+    while ((str = get_next_line(fd)) != NULL)
+    {
+        printf("%s", str);
+        free(str);
+    }
 	str = get_next_line(fd);
 	printf("%s", str);
-	return (0);
+    close(fd);
+    return 0;
 }
