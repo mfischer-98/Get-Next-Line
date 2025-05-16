@@ -6,13 +6,13 @@
 /*   By: mefische <mefische@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:24:18 by mefische          #+#    #+#             */
-/*   Updated: 2025/05/13 15:59:25 by mefische         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:47:16 by mefische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_copystr(char *new_line, char *old, char *buffer)
+void	ft_copystr(char *new_line, char *old, char *buffer) //copia at'e o \n e coloca se precisar
 {
 	 int	i;
 	 int	j;
@@ -81,6 +81,7 @@ void	ft_shiftbuffer(char *buffer)
 	}
 	buffer[j] = '\0';
 }
+
 int	ft_check(char *str)
 {
 	while(*str)
@@ -94,48 +95,50 @@ int	ft_check(char *str)
 
 char *get_next_line(int fd)
 {
-    static char buffer[BUFFER_SIZE + 1];
-    char *line = NULL;
-    int bytes;
+	static char	buffer[BUFFER_SIZE + 1];
+	char		*line;
+	int			bytes;//faltou inicializar. precisa?
 
-    // Ver se tem algo no buffer antes de ler
-    if (buffer[0] != '\0')
-        line = ft_createstr(NULL, buffer);
-    while (!ft_check(buffer))
-    {
-        bytes = read(fd, buffer, BUFFER_SIZE);
-        if (bytes < 0)
-            return (free(line), NULL);
-        buffer[bytes] = '\0';
-        if (bytes == 0) // EOF
-        {
-            if (line && line[0] != '\0')
-                return line;
-            return (free(line), NULL);
-        }
-        line = ft_createstr(line, buffer);
-    }
-    ft_shiftbuffer(buffer);
-    return line;
+	line = NULL;	// Ver se tem algo no buffer antes de ler
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	if (buffer[0] != '\0')
+		line = ft_createstr(NULL, buffer);
+	while (!ft_check(buffer))
+	{
+		bytes = read(fd, buffer, BUFFER_SIZE);
+		if (bytes < 0)
+			return (free(line), NULL);
+		buffer[bytes] = '\0';
+		if (bytes == 0) // EOF
+		{
+ 			if (line && line[0] != '\0')
+				return (line);
+			return (free(line), NULL);
+		}
+		line = ft_createstr(line, buffer);
+	}
+	ft_shiftbuffer(buffer);
+	return (line);
 }
 
 int main(void)
 {
-	int fd = open("text.txt", O_RDONLY);
-    char *str;
-    
-    if (fd < 0)
-    {
-        printf("Error opening file\n");
-        return 1;
-    }
-    while ((str = get_next_line(fd)) != NULL)
-    {
-        printf("%s", str);
-        free(str);
-    }
+	int		fd = open("text.txt", O_RDONLY);
+	char	*str;
+
+	if (fd < 0)
+	{
+		printf("Error opening file\n");
+		return 1;
+	}
+	while ((str = get_next_line(fd)) != NULL)
+	{
+		printf("%s", str);
+		free(str);
+	}
 	str = get_next_line(fd);
-	printf("%s", str);
-    close(fd);
-    return 0;
+	printf("\n%s", str);
+	close(fd);
+	return (0);
 }

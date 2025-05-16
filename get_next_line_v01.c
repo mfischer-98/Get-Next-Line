@@ -6,13 +6,13 @@
 /*   By: mefische <mefische@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 15:46:48 by mefische          #+#    #+#             */
-/*   Updated: 2025/05/13 15:49:29 by mefische         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:44:14 by mefische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*read_line(int fc, char *stash)
+char	*read_line(int fd, char *stash)
 {
 	char	*buffer;
 	int		bytes;
@@ -21,7 +21,8 @@ char	*read_line(int fc, char *stash)
 	buffer = malloc ((BUFFER_SIZE + 1) * sizeof (char));
 	if (!buffer)
 		return (NULL);
-	while(!ft_strchr(buffer) || bytes = 0)
+	*buffer = 0; //preciso inicializar o buffer
+	while(!ft_strchr(buffer, '\n') && bytes != 0)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes == -1)
@@ -40,18 +41,23 @@ char	*get_line(char *stash)
 	int		len;
 	int		i;
 
+	line = NULL;
+	len = 0;
 	if (!stash || !*stash)
 		return (NULL);
 	while(stash[len] && stash[len] != '\n') //como vou lidar com o \0 no final?
 		len++;
 	if (stash[len] == '\n')
 		len++;
-	line = malloc (len * sizeof (char)); //PRECISO DAR FREE DA LINE
+	line = malloc ((len + 1) * sizeof (char)); //PRECISO DAR FREE DA LINE
 	if (!line)
 		return (NULL);
 	i = 0;
-	while (stash[len] && stash[len] != '\n')
-		line[i++] = stash[i++];
+	while (stash[i] && stash[i] != '\n')
+	{
+		line[i] = stash[i];
+		i++;
+	}
 	if (stash[i] == '\n')
 		line[i++] = '\n';
 	line[i] = '\0';
@@ -72,10 +78,10 @@ char	*update_stash(char *stash, char *line)
 	len = ft_strlen(line);
 	if (!stash[len]) // nada depois da linha
 	{
-		free(stash)
+		free(stash);
 		return (NULL);
 	}
-	//stash ou new_stash = ft_strdup(stash) copy until \n
+	new_stash = ft_strdup(stash, line); //copy after /n to new stash, tem MALLOC
 	free (stash);
 	stash = NULL;
 	return (new_stash);
@@ -108,18 +114,16 @@ int	main()
 	char	*line;
 	
 	fd = open("text.txt", O_RDONLY);
-    if (fd == -1)
-    {
-        printf("Error: Could not open text.txt\n");
-        return (1);
-    }
-
-    while ((line = get_next_line(fd)) != NULL)
-    {
-        printf("%s", line);
-        free(line);
-    }
-
-    close(fd);
-    return (0);
+	if (fd == -1)
+	{
+		printf("Error: Could not open text.txt\n");
+		return (1);
+	}
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		printf("%s", line);
+		free(line);
+	}
+	close(fd);
+	return (0);
 }
