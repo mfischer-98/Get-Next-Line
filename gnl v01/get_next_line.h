@@ -6,7 +6,7 @@
 /*   By: mefische <mefische@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:55:23 by mefische          #+#    #+#             */
-/*   Updated: 2025/05/19 14:12:32 by mefische         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:07:09 by mefische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 # include <stdio.h>//printf
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000000
+#  define BUFFER_SIZE 10
 # endif
 
+// Main function
 char	*get_next_line(int fd);
 char	*read_line(int fd, char *stash);
 char	*get_line(char *stash);

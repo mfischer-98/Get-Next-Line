@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_v01.c                                :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mefische <mefische@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 15:46:48 by mefische          #+#    #+#             */
-/*   Updated: 2025/05/19 14:24:18 by mefische         ###   ########.fr       */
+/*   Updated: 2025/05/19 13:58:53 by mefische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*update_stash(char *stash, char *line)
 		return (NULL);
 	}
 	new_stash = ft_strdup(stash, line);
-	return(new_stash);
+	return (new_stash);
 }
 
 char	*get_next_line(int fd)
@@ -104,49 +104,23 @@ char	*get_next_line(int fd)
 	stash = update_stash(stash, line);
 	return (line);
 }
-
-/* int	main(void)
+/* 
+int	main(void)
 {
-	int		fd1;
+	int		fd;
 	char	*line;
 
-	fd1 = open("text.txt", O_RDONLY);
+	fd = open("text.txt", O_RDONLY);
 	if (fd == -1)
 	{
 		printf("Error: Could not open text.txt\n");
 		return (1);
 	}
-	while ((line = get_next_line(fd1)) != NULL)
+	while ((line = get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
 		free(line);
 	}
-	close(fd1);
+	close(fd);
 	return (0);
 } */
-
-int	main(void)
-{
-	int		fd1;
-	int		fd2;
-	char	*line1;
-	char	*line2;
-
-	fd1 = open("text.txt", O_RDONLY);
-	fd2 = open("text2.txt", O_RDONLY);
-	if (fd1 == -1 || fd1 == -1)
-	{
-		printf("Error: Could not open file\n");
-		return (1);
-	}
-	while ((line1 = get_next_line(fd1)) != NULL || (line2 = get_next_line(fd2)) != NULL)
-	{
-		printf("1: %s", line1);
-		printf("2: %s", line2);
-		free(line1);
-		free(line2);
-	}
-	close(fd1);
-	close(fd2);
-	return (0);
-}
