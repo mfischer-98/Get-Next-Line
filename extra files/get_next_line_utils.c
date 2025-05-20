@@ -6,7 +6,7 @@
 /*   By: mefische <mefische@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:55:29 by mefische          #+#    #+#             */
-/*   Updated: 2025/05/19 13:23:16 by mefische         ###   ########.fr       */
+/*   Updated: 2025/05/20 10:12:58 by mefische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-// Alterei para devolver um inteiro e ficar mais facil
+/* Alterei para devolver um inteiro e ficar mais facil */
 int	ft_strchr(const char *s, int c)
 {
 	if (!s)
@@ -38,8 +38,8 @@ int	ft_strchr(const char *s, int c)
 	return (0);
 }
 
-// Duplico a stash e passo ate o \n para a line
-char	*ft_strdup(char *s, char *line) //adicionei line para ver len
+/* Duplico a stash e passo ate o \n para a line */
+char	*ft_strndup(char *s, size_t line_len) //adicionei line para ver len
 {
 	char	*dup;
 	size_t	len;
@@ -47,24 +47,22 @@ char	*ft_strdup(char *s, char *line) //adicionei line para ver len
 
 	if (!s)
 		return (NULL);
-	len = ft_strlen(s) - ft_strlen(line);
+	len = ft_strlen(s) - line_len;
 	dup = malloc (len + 1);
 	if (!dup)
 		return (NULL);
 	i = 0;
-	len = ft_strlen(line);
+	len = line_len;
 	while (s[len + i])
 	{
 		dup[i] = s[len + i];
 		i++;
 	}
 	dup[i] = '\0';
-	free(s);
-	s = NULL;
 	return (dup);
 }
 
-// Juntar o buffer a stash: STASH, BUFFER
+/* Juntar o buffer a stash: STASH, BUFFER */
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*join;
@@ -85,7 +83,5 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2 && s2[j])
 		join[i++] = s2[j++];
 	join[i] = '\0';
-	free(s1);
-	s1 = NULL;
 	return (join);
 }
