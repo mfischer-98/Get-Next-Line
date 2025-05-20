@@ -23,14 +23,9 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*read_line(int fd, char *stash);
-char	*get_line(char *stash);
-char	*update_stash(char *stash, char *line);
-
-// Utility functions
 size_t	ft_strlen(const char *s);
 int		ft_strchr(const char *s, int c);
-char	*ft_strdup(char *s, char *line);
+char	*ft_strndup(char *s, size_t line_len);
 char	*ft_strjoin(char *s1, char *s2);
 
 #endif

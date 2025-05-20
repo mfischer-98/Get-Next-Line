@@ -39,7 +39,7 @@ int	ft_strchr(const char *s, int c)
 }
 
 // Duplico a stash e passo ate o \n para a line
-char	*ft_strdup(char *s, char *line) //adicionei line para ver len
+char	*ft_strndup(char *s, size_t line_len) //adicionei line para ver len
 {
 	char	*dup;
 	size_t	len;
@@ -47,7 +47,7 @@ char	*ft_strdup(char *s, char *line) //adicionei line para ver len
 
 	if (!s)
 		return (NULL);
-	len = ft_strlen(s) - ft_strlen(line);
+	len = ft_strlen(s) - line_len;
 	dup = malloc (len + 1);
 	if (!dup)
 		return (NULL);
