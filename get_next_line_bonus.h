@@ -6,7 +6,7 @@
 /*   By: mefische <mefische@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 11:26:16 by mefische          #+#    #+#             */
-/*   Updated: 2025/05/20 11:26:38 by mefische         ###   ########.fr       */
+/*   Updated: 2025/05/26 11:10:53 by mefische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define GET_NEXT_LINE_BONUS_H
 
 # include <unistd.h>
-# include <fcntl.h>//open
-# include <stdlib.h>//malloc
-# include <stdio.h>//printf
+# include <fcntl.h>
+# include <stdlib.h>
+# include <stdio.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10

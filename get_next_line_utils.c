@@ -6,7 +6,7 @@
 /*   By: mefische <mefische@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:55:29 by mefische          #+#    #+#             */
-/*   Updated: 2025/05/20 10:12:58 by mefische         ###   ########.fr       */
+/*   Updated: 2025/05/26 11:10:23 by mefische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-/* Alterei para devolver um inteiro e ficar mais facil */
 int	ft_strchr(const char *s, int c)
 {
 	if (!s)
@@ -38,8 +37,7 @@ int	ft_strchr(const char *s, int c)
 	return (0);
 }
 
-/* Duplico a stash e passo ate o \n para a line */
-char	*ft_strndup(char *s, size_t line_len) //adicionei line para ver len
+char	*ft_strndup(char *s, size_t line_len)
 {
 	char	*dup;
 	size_t	len;
@@ -62,7 +60,6 @@ char	*ft_strndup(char *s, size_t line_len) //adicionei line para ver len
 	return (dup);
 }
 
-/* Juntar o buffer a stash: STASH, BUFFER */
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*join;

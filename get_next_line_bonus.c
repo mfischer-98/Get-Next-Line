@@ -6,13 +6,13 @@
 /*   By: mefische <mefische@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 15:46:48 by mefische          #+#    #+#             */
-/*   Updated: 2025/05/20 11:38:22 by mefische         ###   ########.fr       */
+/*   Updated: 2025/05/26 11:10:08 by mefische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*read_line(int fd, char *stash)
+static char	*read_line(int fd, char *stash)
 {
 	char	*buffer;
 	char	*temp;
@@ -39,7 +39,7 @@ char	*read_line(int fd, char *stash)
 	return (stash);
 }
 
-char	*ft_get_line(char *stash)
+static char	*ft_get_line(char *stash)
 {
 	char	*line;
 	int		len;
@@ -68,7 +68,7 @@ char	*ft_get_line(char *stash)
 	return (line);
 }
 
-char	*update_stash(char *stash, char *line)
+static char	*update_stash(char *stash, char *line)
 {
 	char	*new_stash;
 	size_t	line_len;
